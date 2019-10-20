@@ -12,6 +12,8 @@ struct trie{
 };
 
 //init a trie node
+//mallocs all children
+//returns pointer to initialised trie node
 struct trie* init_trie(){
     //printf("\n init \n");
     struct trie *t = malloc(sizeof(struct trie));
@@ -23,6 +25,7 @@ struct trie* init_trie(){
     return t;
 }
 
+//insert word as char array into trie
 //return 0 if successful
 //assuming trie passed is the root of trie
 int insert(char *word, struct trie *trie){
@@ -67,6 +70,8 @@ int insert(char *word, struct trie *trie){
     }
 }//insert
 
+//searches for word in trie
+//assumes param t is root node of trie
 //return 0 if not found, 1 if found, -1 on error
 int search(char *word, struct trie *t){
     int len = strlen(word);
@@ -99,7 +104,7 @@ int search(char *word, struct trie *t){
             return 0;
         }
     }
-}
+}//search
 
 int test1(struct trie *t){
     char *word = "word";
@@ -120,10 +125,10 @@ int test1(struct trie *t){
 
 
 int main(int argc, int argv[]){
-    //test main
 
     struct trie *t = init_trie();
 
+    //insert all words from dictionary file into trie
     char word[1000];
     FILE *fp;
     fp = fopen("./dict.txt","r");
@@ -132,16 +137,12 @@ int main(int argc, int argv[]){
         return -1;
     }
 
-
     while(fgets(word, 1000, fp)!=NULL){
         //printf("%s      %d\n", word, strlen(word));
         insert(word, t);
     }
     fclose(fp);
 
- 
-
-    // insert("word", t);
+    //search for "word" in dictionary
     printf("%d\n", search("word", t));
-    //test1(t);
-}
+}//main
