@@ -106,23 +106,6 @@ int search(char *word, struct trie *t){
     }
 }//search
 
-int test1(struct trie *t){
-    char *word = "word";
-
-    printf("%c, eow: %s\n", t->children[0]->c, (t->children[0]->eow ? "true" : "false"));
-    printf("%c, eow: %s\n", t->children[0]->children[0]->c, (t->children[0]->children[0]->eow ? "true" : "false"));
-    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->eow ? "true" : "false"));
-    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->children[0]->eow ? "true" : "false"));
-
-    printf("\n ************************ \n");
-
-    printf("%c, eow: %s\n", t->children[0]->c, (t->children[0]->eow ? "true" : "false"));
-    printf("%c, eow: %s\n", t->children[0]->children[0]->c, (t->children[0]->children[0]->eow ? "true" : "false"));
-    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->eow ? "true" : "false"));
-    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->children[0]->eow ? "true" : "false"));
-
-}
-
 //parses from text file where each new word is on new line
 //returns nonzero on successful parse, -1 on error
 int parse_file(struct trie *t, char *filepath){
@@ -142,6 +125,27 @@ int parse_file(struct trie *t, char *filepath){
     }
     fclose(fp);
 }
+
+//demonstrate trie behavior
+int test1(){
+    struct trie *t = init_trie();
+
+    insert("word", t);
+    insert("war", t);
+
+    printf("%c, eow: %s\n", t->children[0]->c, (t->children[0]->eow ? "true" : "false"));
+    printf("%c, eow: %s\n", t->children[0]->children[0]->c, (t->children[0]->children[0]->eow ? "true" : "false"));
+    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->eow ? "true" : "false"));
+    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->children[0]->eow ? "true" : "false"));
+
+    printf("\n ************************ \n");
+
+    printf("%c, eow: %s\n", t->children[0]->c, (t->children[0]->eow ? "true" : "false"));
+    printf("%c, eow: %s\n", t->children[0]->children[0]->c, (t->children[0]->children[0]->eow ? "true" : "false"));
+    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->eow ? "true" : "false"));
+    printf("%c, eow: %s\n", t->children[0]->children[0]->children[0]->children[0]->c, (t->children[0]->children[0]->children[0]->children[0]->eow ? "true" : "false"));
+}
+
 
 
 int main(int argc, int argv[]){
