@@ -123,25 +123,32 @@ int test1(struct trie *t){
 
 }
 
+//parses from text file where each new word is on new line
+//returns nonzero on successful parse, -1 on error
+int parse_file(struct trie *t, char *filepath){
+    char word[1000];
+    FILE *fp;
+    fp = fopen(filepath,"r");
+    if(fp==NULL){
+        printf("\nERROR ** Bad file path\n");
+        return -1;
+    }
+    while(fgets(word, 1000, fp)!=NULL){
+        //printf("%s      %d\n", word, strlen(word));
+        if(insert(word, t)<0){
+            printf("\nERROR ** Insert failed\n");
+            return -1;
+        }
+    }
+    fclose(fp);
+}
+
 
 int main(int argc, int argv[]){
 
     struct trie *t = init_trie();
 
-    //insert all words from dictionary file into trie
-    char word[1000];
-    FILE *fp;
-    fp = fopen("./dict.txt","r");
-    if(fp==NULL){
-        printf("\nbad file path\n");
-        return -1;
-    }
-
-    while(fgets(word, 1000, fp)!=NULL){
-        //printf("%s      %d\n", word, strlen(word));
-        insert(word, t);
-    }
-    fclose(fp);
+    parse_file(t, "./dict.txt");
 
     //search for "word" in dictionary
     printf("%d\n", search("word", t));
